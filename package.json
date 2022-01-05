@@ -4,7 +4,7 @@
   "description": "[Live Demo](https://bossolin.github.io/odin-battleship/)",
   "private": true,
   "scripts": {
-    "test": "jest",
+    "test": "jest --watchAll --verbose",
     "build": "webpack",
     "watch": "webpack --watch"
   },
@@ -22,12 +22,14 @@
   "devDependencies": {
     "@babel/core": "^7.16.7",
     "@babel/preset-env": "^7.16.7",
+    "@types/jest": "^27.4.0",
     "babel-jest": "^27.4.6",
     "css-loader": "^6.5.1",
     "eslint": "^8.6.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-jest": "^25.3.4",
     "html-webpack-plugin": "^5.5.0",
     "jest": "^27.4.5",
     "jest-cli": "^27.4.6",
