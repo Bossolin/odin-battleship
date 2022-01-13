@@ -12,10 +12,7 @@ const Ship = (length) => {
     return status;
   };
 
-  const isSunk = () => {
-    if (status.every((cell) => cell === 1)) return true;
-    return false;
-  };
+  const isSunk = () => status.every((cell) => cell === 1);
 
   return { status, hit, isSunk };
 };
