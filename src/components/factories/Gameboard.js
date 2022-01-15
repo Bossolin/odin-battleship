@@ -27,6 +27,7 @@ const Gameboard = () => {
     const ship = {
       x: [coordX],
       y: [coordY],
+      direction: xDirection,
       func: Ship(length),
     };
 
@@ -88,7 +89,37 @@ const Gameboard = () => {
     }
   };
 
-  return { placeShip };
+  const receiveAttack = (x, y) => {
+    const position = grid[y - 1][x - 1];
+
+    if (position) {
+      const vessel = fleet[position];
+      let vesselHit = "";
+      if (vessel.direction) {
+        vesselHit = vessel.x.indexOf(x);
+      } else {
+        vesselHit = vessel.y.indexOf(y);
+      }
+
+      vessel.func.hit(vesselHit);
+
+      grid[y - 1][x - 1] = 1;
+    } else grid[y - 1][x - 1] = -1;
+  };
+
+  const isFleetSunk = () => {
+    const ships = Object.keys(fleet);
+
+    const status = [];
+
+    ships.forEach((ship) =>
+      fleet[ship].func.isSunk() ? status.push(true) : status.push(false)
+    );
+
+    return status.every((ship) => ship);
+  };
+
+  return { grid, fleet, placeShip, receiveAttack, isFleetSunk };
 };
 
 export default Gameboard;
