@@ -1,5 +1,4 @@
 import Gameboard from "../factories/Gameboard";
-import Ship from "../factories/Ship";
 
 describe("Gameboard tests", () => {
   let gameboard;
@@ -31,16 +30,19 @@ describe("Gameboard tests", () => {
     gameboard.placeShip(2, 3, 4, true);
     gameboard.receiveAttack(1, 1);
     gameboard.receiveAttack(2, 3);
+    gameboard.receiveAttack(3, 3);
 
     expect(gameboard.grid[0][0]).toBe(-1);
     expect(gameboard.grid[2][1]).toBe(1);
-    expect(gameboard.fleet.battleship.func.status).toEqual([1, 0, 0, 0]);
+    expect(gameboard.fleet.battleship.func.status).toEqual([1, 1, 0, 0]);
   });
 
   test("Gameboards should keep track of missed attacks so they can display them properly.", () => {
     gameboard.receiveAttack(7, 8);
 
     expect(gameboard.grid[7][6]).toBe(-1);
+
+    expect(gameboard.receiveAttack(7, 8)).toBe("Position already hit");
   });
 
   test("Gameboards should be able to report whether or not all of their ships have been sunk.", () => {

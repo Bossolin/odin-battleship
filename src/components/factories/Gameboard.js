@@ -92,6 +92,8 @@ const Gameboard = () => {
   const receiveAttack = (x, y) => {
     const position = grid[y - 1][x - 1];
 
+    if (position === 1 || position === -1) return "Position already hit";
+
     if (position) {
       const vessel = fleet[position];
       let vesselHit = "";
@@ -105,6 +107,8 @@ const Gameboard = () => {
 
       grid[y - 1][x - 1] = 1;
     } else grid[y - 1][x - 1] = -1;
+
+    return position;
   };
 
   const isFleetSunk = () => {
