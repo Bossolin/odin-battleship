@@ -108,7 +108,7 @@ const Gameboard = () => {
       grid[y - 1][x - 1] = 1;
     } else grid[y - 1][x - 1] = -1;
 
-    return position;
+    return grid[y - 1][x - 1];
   };
 
   const isFleetSunk = () => {

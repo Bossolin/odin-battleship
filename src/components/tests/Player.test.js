@@ -21,5 +21,7 @@ describe("Playah tests", () => {
     expect(enemy.gameboard.fleet.battleship.func.status).toEqual([1, 0, 0, 0]);
   });
 
-  test("The game is played against the computer, so make ‘computer’ players capable of making random plays. The AI does not have to be smart, but it should know whether or not a given move is legal. (i.e. it shouldn’t shoot the same coordinate twice).", () => {});
+  test("The game is played against the computer, so make ‘computer’ players capable of making random plays. The AI does not have to be smart, but it should know whether or not a given move is legal. (i.e. it shouldn’t shoot the same coordinate twice).", () => {
+    expect(enemy.randomAttack(player)).toBe(-1);
+  });
 });
