@@ -1,3 +1,4 @@
+import Game from "./components/Game";
 import "./style.css";
 
-console.log("test");
+window.onload = Game();

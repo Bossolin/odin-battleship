@@ -1,3 +1,37 @@
 body {
+  background-color: khaki;
+}
+
+.header {
+  background-color: khaki;
+  height: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.grids {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.player-grid > div,
+.computer-grid > div {
+  height: 400px;
+  width: 400px;
   background-color: black;
+  border: 1px solid black;
+  display: grid;
+  gap: 1px;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+}
+
+.player-grid > div > div,
+.computer-grid > div > div {
+  background-color: white;
 }
