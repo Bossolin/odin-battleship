@@ -2,7 +2,7 @@ import Dom from "./Dom";
 import Player from "./factories/Player";
 
 const Game = () => {
-  const player = Player("You");
+  const player = Player("Player");
   const computer = Player("Computer");
 
   player.gameboard.placeShip(2, 2, 5, true);
@@ -18,9 +18,10 @@ const Game = () => {
   computer.gameboard.placeShip(2, 10, 2, true);
 
   const dom = Dom();
-  dom.renderDom();
+  dom.renderDom(player, computer);
 
-  return { player, computer };
+  dom.renderShips(player);
+  dom.renderShips(computer);
 };
 
 export default Game;

@@ -19,8 +19,8 @@ body {
   gap: 1rem;
 }
 
-.player-grid > div,
-.computer-grid > div {
+.Player,
+.Computer {
   height: 400px;
   width: 400px;
   background-color: black;
@@ -31,7 +31,15 @@ body {
   grid-template-rows: repeat(10, 1fr);
 }
 
-.player-grid > div > div,
-.computer-grid > div > div {
+.Player > div,
+.Computer > div {
   background-color: white;
+}
+
+.carrier,
+.battleship,
+.destroyer,
+.submarine,
+.patrolBoat {
+  background-color: black !important;
 }
