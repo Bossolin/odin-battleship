@@ -43,3 +43,11 @@ body {
 .patrolBoat {
   background-color: black !important;
 }
+
+[class="1"] {
+  background-color: red !important;
+}
+
+.\-1 {
+  background-color: blue !important;
+}

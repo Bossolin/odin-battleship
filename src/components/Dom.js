@@ -44,12 +44,20 @@ const Dom = () => {
     const cells = document.querySelectorAll(`.${obj.playerName} > div`);
 
     cells.forEach((cell) => {
-      const coordX = cell.attributes.x.value;
-      const coordY = cell.attributes.y.value;
+      const coordX = cell.attributes.x.value - 1;
+      const coordY = cell.attributes.y.value - 1;
 
-      console.log(obj.gameboard.grid[coordY - 1][coordX - 1]);
+      cell.classList.add(`${obj.gameboard.grid[coordY][coordX]}`);
 
-      cell.classList.add(`${obj.gameboard.grid[coordY - 1][coordX - 1]}`);
+      if (obj.playerName === "Computer")
+        cell.addEventListener(
+          "click",
+          () => {
+            const attack = obj.gameboard.receiveAttack(coordX + 1, coordY + 1);
+            cell.setAttribute("class", attack);
+          },
+          { once: true }
+        );
     });
   };
 
