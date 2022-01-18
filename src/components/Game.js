@@ -19,9 +19,7 @@ const Game = () => {
 
   const dom = Dom();
   dom.renderDom(player, computer);
-
-  dom.renderShips(player);
-  dom.renderShips(computer);
+  dom.renderShips(player, computer);
 };
 
 export default Game;

@@ -40,24 +40,44 @@ const Dom = () => {
     grids.appendChild(computerGrid);
   };
 
-  const renderShips = (obj) => {
-    const cells = document.querySelectorAll(`.${obj.playerName} > div`);
+  const renderShips = (playerObj, computerObj) => {
+    const playerCells = document.querySelectorAll(
+      `.${playerObj.playerName} > div`
+    );
+    const computerCells = document.querySelectorAll(
+      `.${computerObj.playerName} > div`
+    );
 
-    cells.forEach((cell) => {
+    playerCells.forEach((cell) => {
       const coordX = cell.attributes.x.value - 1;
       const coordY = cell.attributes.y.value - 1;
 
-      cell.classList.add(`${obj.gameboard.grid[coordY][coordX]}`);
+      cell.classList.add(`${playerObj.gameboard.grid[coordY][coordX]}`);
+    });
 
-      if (obj.playerName === "Computer")
-        cell.addEventListener(
-          "click",
-          () => {
-            const attack = obj.gameboard.receiveAttack(coordX + 1, coordY + 1);
-            cell.setAttribute("class", attack);
-          },
-          { once: true }
-        );
+    computerCells.forEach((cell) => {
+      const coordX = cell.attributes.x.value;
+      const coordY = cell.attributes.y.value;
+
+      cell.addEventListener(
+        "click",
+        () => {
+          const attack = computerObj.gameboard.receiveAttack(coordX, coordY);
+          cell.setAttribute("class", attack);
+
+          const retaliation = computerObj.randomAttack(playerObj);
+
+          const playerArr = [...playerCells];
+          const playerCell = playerArr.find(
+            (player) =>
+              +player.attributes.x.value === +retaliation[0] &&
+              +player.attributes.y.value === +retaliation[1]
+          );
+
+          playerCell.setAttribute("class", retaliation[2]);
+        },
+        { once: true }
+      );
     });
   };
 

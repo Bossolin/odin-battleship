@@ -29,7 +29,7 @@ const Player = (name) => {
       execute = shootCoords();
     }
 
-    return execute;
+    return [x, y, execute];
   };
 
   return { playerName, gameboard, attack, randomAttack };
