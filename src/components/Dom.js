@@ -40,6 +40,16 @@ const Dom = () => {
     grids.appendChild(computerGrid);
   };
 
+  const endGame = (computerObj) => {
+    console.log("game ended");
+
+    computerObj.forEach((cell) => {
+      const newCell = cell.cloneNode(true);
+
+      cell.parentNode.replaceChild(newCell, cell);
+    });
+  };
+
   const renderShips = (playerObj, computerObj) => {
     const playerCells = document.querySelectorAll(
       `.${playerObj.playerName} > div`
@@ -59,25 +69,26 @@ const Dom = () => {
       const coordX = cell.attributes.x.value;
       const coordY = cell.attributes.y.value;
 
-      cell.addEventListener(
-        "click",
-        () => {
-          const attack = computerObj.gameboard.receiveAttack(coordX, coordY);
-          cell.setAttribute("class", attack);
+      const checkAttack = () => {
+        const attack = computerObj.gameboard.receiveAttack(+coordX, +coordY);
+        cell.setAttribute("class", attack);
 
-          const retaliation = computerObj.randomAttack(playerObj);
+        const retaliation = computerObj.randomAttack(playerObj);
 
-          const playerArr = [...playerCells];
-          const playerCell = playerArr.find(
-            (player) =>
-              +player.attributes.x.value === +retaliation[0] &&
-              +player.attributes.y.value === +retaliation[1]
-          );
+        const playerArr = [...playerCells];
+        const playerCell = playerArr.find(
+          (player) =>
+            +player.attributes.x.value === +retaliation[0] &&
+            +player.attributes.y.value === +retaliation[1]
+        );
 
-          playerCell.setAttribute("class", retaliation[2]);
-        },
-        { once: true }
-      );
+        playerCell.setAttribute("class", retaliation[2]);
+
+        if (computerObj.gameboard.isFleetSunk()) endGame(computerCells);
+        if (playerObj.gameboard.isFleetSunk()) endGame(computerCells);
+      };
+
+      cell.addEventListener("click", checkAttack, { once: true });
     });
   };
 

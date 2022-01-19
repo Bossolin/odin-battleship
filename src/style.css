@@ -41,7 +41,7 @@ body {
 .destroyer,
 .submarine,
 .patrolBoat {
-  background-color: black !important;
+  background-color: green !important;
 }
 
 [class="1"] {
