@@ -1,3 +1,9 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   background-color: khaki;
 }
@@ -12,6 +18,23 @@ body {
   margin-bottom: 1rem;
 }
 
+.announcer {
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  gap: 2rem;
+}
+
+.announcer button {
+  height: 2.5rem;
+  width: 4rem;
+  background-color: black;
+  color: white;
+}
+
 .grids {
   display: flex;
   justify-content: center;
@@ -19,8 +42,40 @@ body {
   gap: 1rem;
 }
 
+.wrapper {
+  width: 440px;
+  height: 440px;
+  position: relative;
+}
+
+.alphabet {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 40px;
+  width: 400px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.numbers {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 400px;
+  width: 40px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+}
+
 .Player,
 .Computer {
+  position: absolute;
+  bottom: 0;
+  right: 0;
   height: 400px;
   width: 400px;
   background-color: black;
