@@ -6,12 +6,6 @@ const Game = () => {
   const computer = Player("Computer");
   const dom = Dom();
 
-  // player.gameboard.placeShip(2, 2, 5, true);
-  // player.gameboard.placeShip(2, 4, 4, true);
-  // player.gameboard.placeShip(2, 6, 3, true);
-  // player.gameboard.placeShip(2, 8, 3, true);
-  // player.gameboard.placeShip(2, 10, 2, true);
-
   const lazyCPU = () => {
     const random = Math.floor(Math.random() * 5) + 1;
 
@@ -83,6 +77,7 @@ const Game = () => {
   const checkFleet = () => {
     dom.renderShips(player, computer);
     if (isFleetPlaced()) {
+      dom.generateGrid(player);
       dom.generateGrid(computer);
       dom.renderShips(player, computer);
 
