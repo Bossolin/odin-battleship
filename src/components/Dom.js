@@ -71,19 +71,34 @@ const Dom = () => {
       const placeX = e.target.attributes.x.value;
       const placeY = e.target.attributes.y.value;
 
-      obj.gameboard.placeShip(placeX, placeY, length, xDirection);
+      const checkSpace = () => {
+        const slots = [];
 
-      if (length === 3 && condish) {
-        length = 4;
-        condish = false;
-      }
+        for (let i = 0; i < length; i++) {
+          if (xDirection) {
+            slots.push(obj.gameboard.grid[placeY - 1][placeX - 1 + i]);
+          } else {
+            slots.push(obj.gameboard.grid[placeY - 1 + i][placeX - 1]);
+          }
+        }
 
-      length -= 1;
+        return slots.some((slot) => slot);
+      };
 
-      if (length === 1) {
-        const announcer = document.querySelector(".announcer");
-        console.log(announcer);
-        announcer.innerText = "Play the game";
+      if (!checkSpace()) {
+        obj.gameboard.placeShip(placeX, placeY, length, xDirection);
+
+        if (length === 3 && condish) {
+          length = 4;
+          condish = false;
+        }
+
+        length -= 1;
+
+        if (length === 1) {
+          const announcer = document.querySelector(".announcer");
+          announcer.innerText = "Play the game";
+        }
       }
     };
 
