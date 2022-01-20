@@ -1,6 +1,6 @@
 /* eslint-disable no-plusplus */
 const Dom = () => {
-  const renderDom = (player, computer) => {
+  const renderDom = () => {
     const header = document.createElement("div");
     header.classList.add("header");
     header.innerText = "BATTLESHIP";
@@ -18,64 +18,97 @@ const Dom = () => {
     const grids = document.createElement("div");
     grids.classList.add("grids");
     document.body.appendChild(grids);
+  };
 
-    const generateGrid = (obj) => {
-      const wrapper = document.createElement("div");
-      wrapper.classList.add("wrapper");
+  const generateGrid = (obj) => {
+    const grids = document.querySelector(".grids");
 
-      const alphabet = document.createElement("div");
-      alphabet.classList.add("alphabet");
-      wrapper.appendChild(alphabet);
+    const wrapper = document.createElement("div");
+    wrapper.classList.add("wrapper");
 
-      for (let i = 0; i < 10; i++) {
-        const string = "ABCDEFGHIJ";
-        const letter = document.createElement("div");
-        letter.innerText = string[i];
-        alphabet.appendChild(letter);
+    const alphabet = document.createElement("div");
+    alphabet.classList.add("alphabet");
+    wrapper.appendChild(alphabet);
+
+    for (let i = 0; i < 10; i++) {
+      const string = "ABCDEFGHIJ";
+      const letter = document.createElement("div");
+      letter.innerText = string[i];
+      alphabet.appendChild(letter);
+    }
+
+    const numbers = document.createElement("div");
+    numbers.classList.add("numbers");
+    wrapper.appendChild(numbers);
+
+    for (let i = 0; i < 10; i++) {
+      const number = document.createElement("div");
+      number.innerText = i + 1;
+      numbers.appendChild(number);
+    }
+
+    const grid = document.createElement("div");
+    grid.classList.add(obj.playerName);
+    wrapper.appendChild(grid);
+
+    let x = 1;
+    let y = 1;
+
+    let length = 5;
+    let condish = true;
+
+    const placeShip = (e) => {
+      if (length === 1) return;
+
+      const placeX = e.target.attributes.x.value;
+      const placeY = e.target.attributes.y.value;
+
+      obj.gameboard.placeShip(placeX, placeY, length, true);
+
+      if (length === 3 && condish) {
+        length = 4;
+        condish = false;
       }
 
-      const numbers = document.createElement("div");
-      numbers.classList.add("numbers");
-      wrapper.appendChild(numbers);
-
-      for (let i = 0; i < 10; i++) {
-        const number = document.createElement("div");
-        number.innerText = i + 1;
-        numbers.appendChild(number);
-      }
-
-      const grid = document.createElement("div");
-      grid.classList.add(obj.playerName);
-      wrapper.appendChild(grid);
-
-      let x = 1;
-      let y = 1;
-
-      for (let i = 0; i < 100; i++) {
-        const cell = document.createElement("div");
-        cell.setAttribute("x", x);
-        cell.setAttribute("y", y);
-
-        if (x === 10) {
-          x = 1;
-          y += 1;
-        } else x += 1;
-
-        grid.appendChild(cell);
-      }
-
-      return wrapper;
+      length -= 1;
     };
 
-    const playerGrid = generateGrid(player);
-    const computerGrid = generateGrid(computer);
+    const isFleetPlaced = () => {
+      const ships = Object.keys(obj.gameboard.fleet);
 
-    grids.appendChild(playerGrid);
-    grids.appendChild(computerGrid);
+      const { fleet } = obj.gameboard;
+
+      const status = [];
+
+      ships.forEach((ship) =>
+        fleet[ship] ? status.push(true) : status.push(false)
+      );
+
+      return status.every((ship) => ship);
+    };
+
+    for (let i = 0; i < 100; i++) {
+      const cell = document.createElement("div");
+      cell.setAttribute("x", x);
+      cell.setAttribute("y", y);
+
+      if (x === 10) {
+        x = 1;
+        y += 1;
+      } else x += 1;
+
+      grid.appendChild(cell);
+
+      if (!isFleetPlaced()) cell.addEventListener("click", placeShip);
+    }
+
+    grids.appendChild(wrapper);
   };
 
   const endGame = (computerObj, name) => {
     const announcer = document.querySelector(".announcer");
+    const restartBtn = document.createElement("button");
+    restartBtn.innerText = "Restart";
 
     computerObj.forEach((cell) => {
       const newCell = cell.cloneNode(true);
@@ -84,6 +117,7 @@ const Dom = () => {
     });
 
     announcer.innerText = `${name} won the game!`;
+    announcer.appendChild(restartBtn);
   };
 
   const renderShips = (playerObj, computerObj) => {
@@ -130,7 +164,7 @@ const Dom = () => {
     });
   };
 
-  return { renderDom, renderShips };
+  return { renderDom, renderShips, generateGrid };
 };
 
 export default Dom;
