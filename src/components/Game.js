@@ -81,6 +81,7 @@ const Game = () => {
   dom.generateGrid(player);
 
   const checkFleet = () => {
+    dom.renderShips(player, computer);
     if (isFleetPlaced()) {
       dom.generateGrid(computer);
       dom.renderShips(player, computer);

@@ -56,6 +56,14 @@ const Dom = () => {
 
     let length = 5;
     let condish = true;
+    let xDirection = true;
+
+    const rotate = document.querySelector(".announcer button");
+
+    if (rotate)
+      rotate.addEventListener("click", () => {
+        xDirection = !xDirection;
+      });
 
     const placeShip = (e) => {
       if (length === 1) return;
@@ -63,7 +71,7 @@ const Dom = () => {
       const placeX = e.target.attributes.x.value;
       const placeY = e.target.attributes.y.value;
 
-      obj.gameboard.placeShip(placeX, placeY, length, true);
+      obj.gameboard.placeShip(placeX, placeY, length, xDirection);
 
       if (length === 3 && condish) {
         length = 4;
@@ -71,6 +79,12 @@ const Dom = () => {
       }
 
       length -= 1;
+
+      if (length === 1) {
+        const announcer = document.querySelector(".announcer");
+        console.log(announcer);
+        announcer.innerText = "Play the game";
+      }
     };
 
     const isFleetPlaced = () => {
@@ -118,6 +132,10 @@ const Dom = () => {
 
     announcer.innerText = `${name} won the game!`;
     announcer.appendChild(restartBtn);
+
+    restartBtn.addEventListener("click", () => {
+      window.location.reload();
+    });
   };
 
   const renderShips = (playerObj, computerObj) => {

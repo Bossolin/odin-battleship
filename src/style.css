@@ -37,6 +37,11 @@ body {
   border-radius: 4px;
 }
 
+.announcer button:active {
+  background-color: white;
+  color: black;
+}
+
 .grids {
   display: flex;
   justify-content: center;
